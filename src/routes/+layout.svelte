@@ -9,6 +9,6 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <Navbar {data}/>
-<div class="pt-20">
+<div class="pt-24 md:pt-20">
     {@render children()}
 </div>

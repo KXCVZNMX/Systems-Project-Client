@@ -8,7 +8,7 @@
 </script>
 
 <div
-    class="fixed bottom-6 left-4 z-50 md:hidden"
+    class="fixed bottom-5 left-4 z-50 md:hidden"
     role="button"
     aria-label={open ? "Close menu" : "Open menu"}
     tabindex={0}
@@ -30,16 +30,16 @@
 
 <div
     class={open
-        ? "fixed top-0 left-0 z-50 h-full w-72 max-w-[80%] translate-x-0 transform bg-base-100 shadow-xl transition-transform md:hidden"
-        : "fixed top-0 left-0 z-50 h-full w-72 max-w-[80%] -translate-x-full transform bg-base-100 shadow-xl transition-transform md:hidden"}
+        ? "fixed top-0 left-0 z-50 h-full w-[82%] max-w-[22rem] translate-x-0 transform bg-base-100 shadow-xl transition-transform md:hidden"
+        : "fixed top-0 left-0 z-50 h-full w-[82%] max-w-[22rem] -translate-x-full transform bg-base-100 shadow-xl transition-transform md:hidden"}
     role="dialog"
     aria-modal="true"
 >
     <div>
-        <div class="p-4">
-            <div class="mb-4 flex items-center justify-between">
-                <h3 class="text-lg font-semibold">Menu</h3>
-                <button onclick={() => (open = false)} aria-label="Close menu">
+        <div class="p-5">
+            <div class="mb-5 flex items-center justify-between">
+                <h3 class="text-xl font-semibold">Menu</h3>
+                <button onclick={() => (open = false)} aria-label="Close menu" class="btn btn-ghost btn-sm">
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path
                             d="M6 6L18 18M6 18L18 6"
@@ -57,7 +57,7 @@
                     <li>
                         <a
                             href="/"
-                            class="block rounded px-3 py-2 hover:bg-base-200"
+                            class="block rounded-lg px-4 py-3 text-base hover:bg-base-200"
                             onclick={() => (open = false)}
                         >
                             Home
@@ -65,27 +65,27 @@
                     </li>
                 </ul>
 
-                <div class="mt-4 border-t border-base-200 pt-4">
+                <div class="mt-5 border-t border-base-200 pt-5">
                     {#if data.session}
-                        <div class="flex flex-col gap-3 px-3">
+                        <div class="flex flex-col gap-4 px-1">
                             <div class="flex items-center gap-3">
-                                <img src={data.session.user.image ?? DefaultAvatar} alt="User Avatar" class="h-10 w-10 rounded-full"/>
-                                <div class="text-sm font-medium">
+                                <img src={data.session.user.image ?? DefaultAvatar} alt="User Avatar" class="h-11 w-11 rounded-full"/>
+                                <div class="text-base font-medium">
                                     {data.session?.user?.name}
                                 </div>
                             </div>
 
                             <ul class="flex flex-col gap-2">
                                 <li>
-                                    <button onclick={() => signOut()} aria-label="Logout" title="Logout" role="menuitem" class="text-red-500 block px-3 py-2 rounded hover:bg-base-200 w-full text-left">
+                                    <button onclick={() => signOut()} aria-label="Logout" title="Logout" role="menuitem" class="text-red-500 block px-4 py-3 rounded-lg hover:bg-base-200 w-full text-left text-base">
                                         Sign out
                                     </button>
                                 </li>
                             </ul>
                         </div>
                     {:else}
-                        <div class="px-3">
-                            <button class="inline-block px-3 py-2 btn btn-primary w-full text-center" onclick={() => signIn()}>
+                        <div class="px-1">
+                            <button class="inline-block px-4 py-3 btn btn-primary btn-lg w-full text-center" onclick={() => signIn()}>
                                 Login
                             </button>
                         </div>

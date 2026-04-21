@@ -24,12 +24,11 @@
     });
 </script>
 
-<div class="flex flex-col justify-center items-center">
-    <h1 class="text-xl font-bold">
-        Queuing QRCode
-    </h1>
-    <h4 class="text-md text-gray-200/80">
-        Please turn up the screen lighting
-    </h4>
-    <img {src} alt="QRCode" class="h-80 w-80 p-2" />
-</div>
+<section class="mx-auto flex min-h-[78svh] w-full max-w-xl flex-col items-center justify-center px-5 pb-12">
+    <h1 class="text-center text-3xl font-black tracking-tight">Your Queue QR</h1>
+    <p class="mt-2 text-center text-base text-base-content/75">Raise brightness for faster scanning</p>
+
+    <div class="mt-6 w-full max-w-[24rem] rounded-3xl bg-white p-4 shadow-2xl">
+        <img {src} alt="QRCode" class="h-auto w-full" />
+    </div>
+</section>
