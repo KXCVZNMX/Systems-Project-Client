@@ -2,8 +2,23 @@
     import "./layout.css";
     import favicon from "$lib/assets/favicon.svg";
     import Navbar from "$lib/components/Navbar.svelte";
+    import { onMount } from 'svelte';
 
     let { children, data } = $props();
+
+    // Register the service worker on client
+    onMount(() => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then((reg) => {
+                    // console.log('Service worker registered', reg);
+                })
+                .catch(() => {
+                    // console.warn('Service worker registration failed');
+                });
+        }
+    });
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
