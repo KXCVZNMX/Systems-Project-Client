@@ -15,61 +15,7 @@
     const QUEUE_STATUS_URL_PROD = "https://systems.server.kvznmx.com/queue/status";
     const isDev = import.meta.env.DEV;
 
-    // Helper to convert VAPID key
-    function urlBase64ToUint8Array(base64String: string) {
-        const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-        const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
-        const rawData = atob(base64);
-        const outputArray = new Uint8Array(rawData.length);
-        for (let i = 0; i < rawData.length; ++i) {
-            outputArray[i] = rawData.charCodeAt(i);
-        }
-        return outputArray;
-    }
-
-    async function enablePush() {
-        if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
-            alert("Push messaging is not supported in this browser.");
-            return;
-        }
-
-        // Ask for notification permission first
-        const permission = await Notification.requestPermission();
-        if (permission !== "granted") {
-            alert("Notification permission denied");
-            return;
-        }
-
-        // Get VAPID public key from server
-        const res = await fetch("/api/push/vapid");
-        if (!res.ok) {
-            alert(
-                "Unable to get VAPID public key from server. Configure VAPID keys on the server."
-            );
-            return;
-        }
-        const { publicKey } = await res.json();
-
-        const reg = await navigator.serviceWorker.ready;
-        try {
-            const sub = await reg.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array(publicKey)
-            });
-
-            // Send subscription to server
-            await fetch("/api/push/subscribe", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(sub)
-            });
-
-            alert("Push subscription created successfully");
-        } catch (e) {
-            console.error("Push subscription failed", e);
-            alert("Push subscription failed: " + e);
-        }
-    }
+    // ...existing code...
 
     $effect.pre(() => {
         // Initialize from server data on mount
@@ -192,9 +138,6 @@
 <section
     class="mx-auto flex min-h-[78svh] w-full max-w-xl flex-col items-center justify-center px-5 pb-12"
 >
-    <div class="absolute top-20 right-4 z-40">
-        <button class="btn btn-sm" onclick={enablePush}>Enable Notifications</button>
-    </div>
 
     <h1 class="text-center text-3xl font-black tracking-tight">Your Queue QR</h1>
     <p class="mt-2 text-center text-base text-base-content/75">
