@@ -1,4 +1,5 @@
 import { dev } from "$app/environment";
+import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 const QUEUE_STATUS_ORIGIN = dev ? "http://localhost:5173" : "https://systems.server.kvznmx.com";
@@ -8,10 +9,7 @@ export const load: PageServerLoad = async ({ fetch, parent }) => {
     const email = session?.user?.email;
 
     if (!email) {
-        return {
-            queueRank: null,
-            queueRankError: "Sign in to view queue rank."
-        };
+        redirect(302, "/auth/signin");
     }
 
     const queueStatusUrl = new URL("/queue/status", QUEUE_STATUS_ORIGIN);
