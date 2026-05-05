@@ -1,6 +1,6 @@
 <script lang="ts">
-    import QRCode from 'qrcode';
-    import type { PageData } from './$types';
+    import QRCode from "qrcode";
+    import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
 
@@ -11,8 +11,8 @@
     let pollIntervalId: ReturnType<typeof setInterval> | null = null;
 
     const POLL_INTERVAL = 10 * 1000;
-    const QUEUE_STATUS_URL_DEV = 'http://localhost:5173/queue/status';
-    const QUEUE_STATUS_URL_PROD = 'https://systems.server.kvznmx.com/queue/status';
+    const QUEUE_STATUS_URL_DEV = "http://localhost:5173/queue/status";
+    const QUEUE_STATUS_URL_PROD = "https://systems.server.kvznmx.com/queue/status";
     const isDev = import.meta.env.DEV;
 
     $effect.pre(() => {
@@ -59,13 +59,13 @@
 
         const origin = isDev ? QUEUE_STATUS_URL_DEV : QUEUE_STATUS_URL_PROD;
         const url = new URL(origin);
-        url.searchParams.set('userEmail', email);
+        url.searchParams.set("userEmail", email);
 
         try {
             const response = await fetch(url.toString());
 
             if (!response.ok) {
-                currentQueueError = 'Unable to fetch queue rank right now.';
+                currentQueueError = "Unable to fetch queue rank right now.";
                 return;
             }
 
@@ -73,14 +73,14 @@
             const rank = Number.parseInt(rankText, 10);
 
             if (!Number.isInteger(rank) || rank < 1) {
-                currentQueueError = 'Queue rank is currently unavailable.';
+                currentQueueError = "Queue rank is currently unavailable.";
                 return;
             }
 
             currentQueueRank = rank;
             currentQueueError = null;
         } catch {
-            currentQueueError = 'Queue rank is currently unavailable.';
+            currentQueueError = "Queue rank is currently unavailable.";
         }
     }
 
@@ -111,31 +111,35 @@
 
     function showQueuePositionNotification(position: number) {
         // Request notification permission if not already granted
-        if ('Notification' in window && Notification.permission === 'default') {
+        if ("Notification" in window && Notification.permission === "default") {
             Notification.requestPermission();
         }
 
         // Show notification if permission is granted
-        if ('Notification' in window && Notification.permission === 'granted') {
+        if ("Notification" in window && Notification.permission === "granted") {
             const messages: Record<number, string> = {
-                1: '🎉 You\'re next! Get ready!',
-                2: '⏱️ Almost there! 2nd in queue',
-                3: '👀 3rd in queue'
+                1: "🎉 You're next! Get ready!",
+                2: "⏱️ Almost there! 2nd in queue",
+                3: "👀 3rd in queue"
             };
 
-            new Notification('Queue Update', {
+            new Notification("Queue Update", {
                 body: messages[position] || `You're #${position} in queue`,
-                badge: '/favicon.svg',
-                tag: 'queue-position',
+                badge: "/favicon.svg",
+                tag: "queue-position",
                 requireInteraction: position === 1
             });
         }
     }
 </script>
 
-<section class="mx-auto flex min-h-[78svh] w-full max-w-xl flex-col items-center justify-center px-5 pb-12">
+<section
+    class="mx-auto flex min-h-[78svh] w-full max-w-xl flex-col items-center justify-center px-5 pb-12"
+>
     <h1 class="text-center text-3xl font-black tracking-tight">Your Queue QR</h1>
-    <p class="mt-2 text-center text-base text-base-content/75">Raise brightness for faster scanning</p>
+    <p class="mt-2 text-center text-base text-base-content/75">
+        Raise brightness for faster scanning
+    </p>
     <p class="mt-1 text-center text-sm text-base-content/80">
         {#if currentQueueRank}
             Queue position: #{currentQueueRank}

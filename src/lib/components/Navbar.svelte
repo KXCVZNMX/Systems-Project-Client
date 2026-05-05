@@ -6,7 +6,7 @@
 
 <nav class="navbar fixed top-0 z-50 w-full bg-base-100/65 backdrop-blur-md">
     <div class="px-3 py-2">
-        <a href="/" class="btn btn-ghost h-12 min-h-12 px-4 text-2xl font-black text-white">QB</a>
+        <a href="/" class="btn h-12 min-h-12 px-4 text-2xl font-black text-white btn-ghost">QB</a>
     </div>
 </nav>
 

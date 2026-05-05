@@ -1,7 +1,7 @@
-import { dev } from '$app/environment';
-import type { PageServerLoad } from './$types';
+import { dev } from "$app/environment";
+import type { PageServerLoad } from "./$types";
 
-const QUEUE_STATUS_ORIGIN = dev ? 'http://localhost:5173' : 'https://systems.server.kvznmx.com';
+const QUEUE_STATUS_ORIGIN = dev ? "http://localhost:5173" : "https://systems.server.kvznmx.com";
 
 export const load: PageServerLoad = async ({ fetch, parent }) => {
     const { session } = await parent();
@@ -10,12 +10,12 @@ export const load: PageServerLoad = async ({ fetch, parent }) => {
     if (!email) {
         return {
             queueRank: null,
-            queueRankError: 'Sign in to view queue rank.'
+            queueRankError: "Sign in to view queue rank."
         };
     }
 
-    const queueStatusUrl = new URL('/queue/status', QUEUE_STATUS_ORIGIN);
-    queueStatusUrl.searchParams.set('userEmail', email);
+    const queueStatusUrl = new URL("/queue/status", QUEUE_STATUS_ORIGIN);
+    queueStatusUrl.searchParams.set("userEmail", email);
 
     try {
         const response = await fetch(queueStatusUrl);
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ fetch, parent }) => {
         if (!response.ok) {
             return {
                 queueRank: null,
-                queueRankError: 'Unable to fetch queue rank right now.'
+                queueRankError: "Unable to fetch queue rank right now."
             };
         }
 
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async ({ fetch, parent }) => {
         if (!Number.isInteger(rank) || rank < 1) {
             return {
                 queueRank: null,
-                queueRankError: 'Queue rank is currently unavailable.'
+                queueRankError: "Queue rank is currently unavailable."
             };
         }
 
@@ -44,8 +44,7 @@ export const load: PageServerLoad = async ({ fetch, parent }) => {
     } catch {
         return {
             queueRank: null,
-            queueRankError: 'Queue rank is currently unavailable.'
+            queueRankError: "Queue rank is currently unavailable."
         };
     }
 };
-

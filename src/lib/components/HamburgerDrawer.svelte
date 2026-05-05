@@ -1,7 +1,7 @@
 <script lang="ts">
     import HamburgerIcon from "$lib/components/HamburgerIcon.svelte";
     import DefaultAvatar from "$lib/assets/default-avatar.svg";
-    import { signIn, signOut } from "@auth/sveltekit/client"
+    import { signIn, signOut } from "@auth/sveltekit/client";
 
     let { data } = $props();
     let open = $state(false);
@@ -39,7 +39,11 @@
         <div class="p-5">
             <div class="mb-5 flex items-center justify-between">
                 <h3 class="text-xl font-semibold">Menu</h3>
-                <button onclick={() => (open = false)} aria-label="Close menu" class="btn btn-ghost btn-sm">
+                <button
+                    onclick={() => (open = false)}
+                    aria-label="Close menu"
+                    class="btn btn-ghost btn-sm"
+                >
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path
                             d="M6 6L18 18M6 18L18 6"
@@ -69,7 +73,11 @@
                     {#if data.session}
                         <div class="flex flex-col gap-4 px-1">
                             <div class="flex items-center gap-3">
-                                <img src={data.session.user.image ?? DefaultAvatar} alt="User Avatar" class="h-11 w-11 rounded-full"/>
+                                <img
+                                    src={data.session.user.image ?? DefaultAvatar}
+                                    alt="User Avatar"
+                                    class="h-11 w-11 rounded-full"
+                                />
                                 <div class="text-base font-medium">
                                     {data.session?.user?.name}
                                 </div>
@@ -77,7 +85,13 @@
 
                             <ul class="flex flex-col gap-2">
                                 <li>
-                                    <button onclick={() => signOut()} aria-label="Logout" title="Logout" role="menuitem" class="text-red-500 block px-4 py-3 rounded-lg hover:bg-base-200 w-full text-left text-base">
+                                    <button
+                                        onclick={() => signOut()}
+                                        aria-label="Logout"
+                                        title="Logout"
+                                        role="menuitem"
+                                        class="block w-full rounded-lg px-4 py-3 text-left text-base text-red-500 hover:bg-base-200"
+                                    >
                                         Sign out
                                     </button>
                                 </li>
@@ -85,7 +99,10 @@
                         </div>
                     {:else}
                         <div class="px-1">
-                            <button class="inline-block px-4 py-3 btn btn-primary btn-lg w-full text-center" onclick={() => signIn()}>
+                            <button
+                                class="btn inline-block w-full px-4 py-3 text-center btn-lg btn-primary"
+                                onclick={() => signIn()}
+                            >
                                 Login
                             </button>
                         </div>

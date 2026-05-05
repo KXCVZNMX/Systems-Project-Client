@@ -3,7 +3,7 @@
 </script>
 
 <button
-    class="btn btn-square btn-lg bg-base-200 shadow-2xl"
+    class="btn btn-square bg-base-200 shadow-2xl btn-lg"
     aria-label={open ? "Close menu" : "Open menu"}
 >
     <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none">
