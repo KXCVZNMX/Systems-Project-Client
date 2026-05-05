@@ -11,7 +11,7 @@ export const POST = async ({ request }) => {
         try {
             const raw = await fs.readFile(FILE, "utf8");
             subs = JSON.parse(raw || "[]");
-        } catch (e) {
+        } catch {
             subs = [];
         }
 
